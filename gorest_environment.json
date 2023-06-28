@@ -1,0 +1,57 @@
+{
+	"id": "2fe5f363-1293-4110-b190-a5eb7dd4c73b",
+	"name": "gorest",
+	"values": [
+		{
+			"key": "TOKEN",
+			"value": "e44ee47f4f40327033bc9d7f9a8e1d3cf3fe9035ebf1063d95365efc3e168238",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "URL",
+			"value": "https://gorest.co.in",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CREATE_USER",
+			"value": "{\n    \"name\": \"Angela Smith\",\n    \"email\": \"angela.smith@example.com\",\n    \"gender\": \"female\",\n    \"status\": \"active\"\n}\n",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UPDATE_USER",
+			"value": "{\n    \"name\": \"Angela Smith Marpaung\",\n    \"email\": \"angela.smith@example.com\",\n    \"gender\": \"female\",\n    \"status\": \"active\"\n}\n",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CREATE_POST",
+			"value": "    {\n        \"title\": \"Membuat Automation API Test\",\n        \"body\": \"Dalam mengotomatisasi pengujian API, kita memilih bahasa pemrograman, menentukan URL dan endpoint, mengatur header dan payload, lalu menggunakan library requests untuk mengirim permintaan dan memeriksa respons.\"\n    }",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CREATE_COMMENTS",
+			"value": "{\n            \"email\": \"john_asep@gmail.example\",\n        \"body\": \"Example comment\"\n}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CREATE_TODOS",
+			"value": "{\n            \"title\": \"Membuat Automation API Test Go Rest\",\n        \"status\": \"pending\"\n}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "USER_ID",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-06-28T09:30:07.992Z",
+	"_postman_exported_using": "Postman/10.15.4"
+}
