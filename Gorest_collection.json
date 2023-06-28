@@ -1,0 +1,829 @@
+{
+	"info": {
+		"_postman_id": "9567df50-8e57-4308-80b4-837f8f6e1589",
+		"name": "Gorest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20554601",
+		"_collection_link": "https://www.postman.com/lunar-astronaut-762455/workspace/gorest-api/collection/20554601-9567df50-8e57-4308-80b4-837f8f6e1589?action=share&creator=20554601&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"});\r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"// pm.environment.set(\"USER_ID\",response.id)\r",
+									"\r",
+									"pm.test('buat userid', () => {\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"    pm.environment.set(\"USER_ID\", jsonResponse.id);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CREATE_USER}}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user detail with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status( 404);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/xxx",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"xxx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user details with valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"//memeriksa apakah body memiliki properti dan nilai\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"    pm.expect(responseJson).to.have.property('id');\r",
+									"    pm.expect(responseJson).to.have.property('name');\r",
+									"    pm.expect(responseJson).to.have.property('email');\r",
+									"    pm.expect(responseJson).to.have.property('gender');\r",
+									"    pm.expect(responseJson).to.have.property('status');\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user detail with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"//Mengecek respon body\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.message).to.equal('Resource not found');\r",
+									"    pm.expect(responseJson.message).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UPDATE_USER}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users/xxx",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"xxx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user details with valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"//lanjut melakukan eksekusi ke delete user with invalid id\r",
+									"postman.setNextRequest(\"Create a user post\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UPDATE_USER}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// //Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/xxx",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"xxx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user with valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// //Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"// //Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"// pm.test('response Content-Type header should have application/json value', () => {\r",
+									"//     pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"// }); \r",
+									"\r",
+									"// //Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"// pm.test('response body should an object', () => {\r",
+									"//     const responseJson = pm.response.json()\r",
+									"//     pm.expect(responseJson).to.be.an('object')\r",
+									"// });\r",
+									"\r",
+									"\r",
+									"pm.test('When GET detail user', () => {\r",
+									"    const url = pm.environment.get(\"URL\");\r",
+									"    const userId = pm.environment.get(\"USER_ID\");\r",
+									"\r",
+									"    pm.sendRequest(`${url}/public/v2/users/${userId}`, (error, response) => {\r",
+									"        pm.test(`User with userId ${userId} successfully deleted`, () => {\r",
+									"            pm.expect(error).to.be.null;\r",
+									"            pm.expect(response.code).to.equal(404);\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"//menghentikan eksekusi selanjutnya\r",
+									"postman.setNextRequest(null)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create a user post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status( 201);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CREATE_POST}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}/posts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}/posts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Creates a post comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CREATE_COMMENTS}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}/comments",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Creates a user todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status( 201);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//Melakukan pengecekan apakah respon dari permintaan API adalah object\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json()\r",
+									"    pm.expect(responseJson).to.be.an('object')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CREATE_TODOS}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}/todos",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Melakukan pengecekan untuk memastikan status codenya 404\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Melakukan verifikasi apakah API memiliki Content-type dengan nilai application/json\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+									"}); \r",
+									"\r",
+									"//lanjut melakukan eksekusi ke delete user with invalid id\r",
+									"postman.setNextRequest('Delete user with invalid id')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/public/v2/users/{{USER_ID}}/todos",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{USER_ID}}",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
